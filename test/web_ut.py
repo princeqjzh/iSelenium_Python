@@ -22,9 +22,14 @@ class ISelenium(unittest.TestCase):
         config = self.get_config()
 
         # 控制是否采用无界面形式运行自动化测试
-        using_headless = os.environ["using_headless"]
+        try:
+            using_headless = os.environ["using_headless"]
+        except KeyError:
+            using_headless = None
+            print('没有配置环境变量 using_headless, 按照有界面方式运行自动化测试')
+
         chrome_options = Options()
-        if using_headless == 'true':
+        if using_headless is not None and using_headless.lower() == 'true':
             print('使用无界面方式运行')
             chrome_options.add_argument("--headless")
 
