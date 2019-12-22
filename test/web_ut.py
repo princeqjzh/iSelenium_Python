@@ -39,7 +39,7 @@ class ISelenium(unittest.TestCase):
     def test_webui_1(self):
         self.driver.get("https://ww.baidu.com")
         print('打开浏览器，访问 www.baidu.com')
-        time.sleep(2)
+        time.sleep(5)
         assert u"百度一下" in self.driver.title
 
         self.driver.maximize_window()
@@ -48,13 +48,13 @@ class ISelenium(unittest.TestCase):
         elem = self.driver.find_element_by_name("wd")
         elem.send_keys(u"今日头条" + Keys.RETURN)
         print('搜索关键词~今日头条')
-        time.sleep(2)
+        time.sleep(5)
         self.assertTrue(u"今日头条" in self.driver.title, msg='webui_1校验点 pass')
 
     def test_webui_2(self):
         self.driver.get("https://ww.baidu.com")
         print('打开浏览器，访问 www.baidu.com')
-        time.sleep(2)
+        time.sleep(5)
         assert u"百度一下" in self.driver.title
 
         self.driver.maximize_window()
@@ -63,5 +63,5 @@ class ISelenium(unittest.TestCase):
         elem = self.driver.find_element_by_name("wd")
         elem.send_keys(u"王者荣耀" + Keys.RETURN)
         print('搜索关键词~王者荣耀')
-        time.sleep(2)
+        time.sleep(5)
         self.assertTrue(u"王者荣耀" in self.driver.title, msg='webui_1校验点 pass')
