@@ -37,31 +37,31 @@ class ISelenium(unittest.TestCase):
                                        chrome_options=chrome_options)
 
     def test_webui_1(self):
-        self.driver.get("https://ww.baidu.com")
-        print('打开浏览器，访问 www.baidu.com')
-        time.sleep(5)
-        assert u"百度一下" in self.driver.title
+        """ 测试用例1，验证'今日头条'关键词在百度上的搜索结果
+        """
 
-        self.driver.maximize_window()
-        print("浏览器窗口最大化")
-
-        elem = self.driver.find_element_by_name("wd")
-        elem.send_keys(u"今日头条" + Keys.RETURN)
-        print('搜索关键词~今日头条')
-        time.sleep(5)
-        self.assertTrue(u"今日头条" in self.driver.title, msg='webui_1校验点 pass')
+        self._test_baidu('今日头条', 'test_webui_1')
 
     def test_webui_2(self):
+        """ 测试用例2， 验证'王者荣耀'关键词在百度上的搜索结果
+        """
+
+        self._test_baidu('王者荣耀', 'test_webui_2')
+
+    def _test_baidu(self, search_keyword, testcase_name):
+        """ 测试百度搜索子函数
+
+        :param search_keyword: 搜索关键词 (str)
+        :param testcase_name: 测试用例名 (str)
+        """
+
         self.driver.get("https://ww.baidu.com")
         print('打开浏览器，访问 www.baidu.com')
         time.sleep(5)
-        assert u"百度一下" in self.driver.title
-
-        self.driver.maximize_window()
-        print("浏览器窗口最大化")
+        assert f'百度一下' in self.driver.title
 
         elem = self.driver.find_element_by_name("wd")
-        elem.send_keys(u"王者荣耀" + Keys.RETURN)
-        print('搜索关键词~王者荣耀')
+        elem.send_keys(f'{search_keyword}{Keys.RETURN}')
+        print(f'搜索关键词~{search_keyword}')
         time.sleep(5)
-        self.assertTrue(u"王者荣耀" in self.driver.title, msg='webui_1校验点 pass')
+        self.assertTrue(f'{search_keyword}' in self.driver.title, msg=f'{testcase_name}校验点 pass')
