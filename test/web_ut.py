@@ -34,7 +34,7 @@ class ISelenium(unittest.TestCase):
             chrome_options.add_argument("--headless")
 
         self.driver = webdriver.Chrome(executable_path=config.get('driver', 'chrome_driver'),
-                                       chrome_options=chrome_options)
+                                       options=chrome_options)
 
     def test_webui_1(self):
         """ 测试用例1，验证'今日头条'关键词在百度上的搜索结果

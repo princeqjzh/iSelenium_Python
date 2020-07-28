@@ -56,3 +56,4 @@ venv/*
 
 config
 nosetests.xml
+pytests.xml
