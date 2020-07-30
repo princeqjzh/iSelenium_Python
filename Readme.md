@@ -2,7 +2,7 @@
 运行环境：
 - selenium web driver
 - python3
-- unittest, nosetests
+- pytest
 - git
 
 配置文件：iselenium.ini
@@ -10,4 +10,4 @@
 - 填入设备的chromwebdriver文件的全路径
 
 运行命令：
-nosetests -v test/web_ut.py 
+pytest -v test/web_ut.py -o junit_family=xunit2 --junit-xml=pytests.xml
