@@ -1,3 +1,4 @@
+import allure
 import configparser
 import os
 import time
@@ -8,6 +9,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 
 
+@allure.feature('Test Baidu WebUI')
 class ISelenium(unittest.TestCase):
     # 读入配置文件
     def get_config(self):
@@ -36,12 +38,14 @@ class ISelenium(unittest.TestCase):
         self.driver = webdriver.Chrome(executable_path=config.get('driver', 'chrome_driver'),
                                        options=chrome_options)
 
+    @allure.story('Test key word 今日头条')
     def test_webui_1(self):
         """ 测试用例1，验证'今日头条'关键词在百度上的搜索结果
         """
 
         self._test_baidu('今日头条', 'test_webui_1')
 
+    @allure.story('Test key word 王者荣耀')
     def test_webui_2(self):
         """ 测试用例2， 验证'王者荣耀'关键词在百度上的搜索结果
         """
