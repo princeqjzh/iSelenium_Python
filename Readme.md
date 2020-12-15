@@ -10,4 +10,4 @@
 - 填入设备的chromwebdriver文件的全路径
 
 运行命令：
-pytest -v test/web_ut.py -o junit_family=xunit2 --junit-xml=pytests.xml
+pytest -sv test/web_ut.py --alluredir ./allure-results
