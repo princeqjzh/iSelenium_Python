@@ -59,7 +59,7 @@ class ISelenium(unittest.TestCase):
         :param testcase_name: 测试用例名 (str)
         """
 
-        self.driver.get("https://ww.baidu.com")
+        self.driver.get("https://www.baidu.com")
         print('打开浏览器，访问 www.baidu.com')
         time.sleep(5)
         assert f'百度一下' in self.driver.title
