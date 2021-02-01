@@ -14,7 +14,7 @@ class ISelenium(unittest.TestCase):
     # 读入配置文件
     def get_config(self):
         config = configparser.ConfigParser()
-        config.read(os.path.join(os.environ['HOME'], 'iselenium.ini'))
+        config.read(os.path.join(os.environ['HOMEPATH'], 'iselenium.ini'))
         return config
 
     def tearDown(self):
@@ -35,8 +35,9 @@ class ISelenium(unittest.TestCase):
             print('使用无界面方式运行')
             chrome_options.add_argument("--headless")
 
-        self.driver = webdriver.Chrome(executable_path=config.get('driver', 'chrome_driver'),
-                                       options=chrome_options)
+#         self.driver = webdriver.Chrome(executable_path=config.get('driver', 'chrome_driver'),
+#                                        options=chrome_options)
+          self.driver = webdriver.Chrome(options=chrome_options)
 
     @allure.story('Test key word 今日头条')
     def test_webui_1(self):
