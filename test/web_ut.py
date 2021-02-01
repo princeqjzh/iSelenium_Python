@@ -12,10 +12,10 @@ from selenium.webdriver.chrome.options import Options
 @allure.feature('Test Baidu WebUI')
 class ISelenium(unittest.TestCase):
     # 读入配置文件
-#     def get_config(self):
-#         config = configparser.ConfigParser()
-#         config.read(os.path.join(os.environ['HOMEPATH'], 'iselenium.ini'))
-#         return config
+    def get_config(self):
+        config = configparser.ConfigParser()
+        config.read(os.path.join(os.environ['HOMEPATH'], 'iselenium.ini'))
+        return config
 
     def tearDown(self):
         self.driver.quit()
@@ -37,7 +37,7 @@ class ISelenium(unittest.TestCase):
 
 #          self.driver = webdriver.Chrome(executable_path=config.get('driver', 'chrome_driver'),
 #                                         options=chrome_options)
-          self.driver = webdriver.Chrome(options=chrome_options)
+        self.driver = webdriver.Chrome(options=chrome_options)
 
     @allure.story('Test key word 今日头条')
     def test_webui_1(self):
