@@ -38,8 +38,9 @@ class ISelenium(unittest.TestCase):
             self.driver = webdriver.Chrome(executable_path=config.get('driver', 'chrome_driver'),
                                            options=chrome_options)
         elif browser is not None and browser.lower() == 'remote':
-            print('使用远程方式运行')
-            self.driver = webdriver.Remote(command_executor=config.get('driver', 'remote'),
+            docker_remote = config.get('driver', 'remote')
+            print(f'使用远程方式运行, remote url:{docker_remote}')
+            self.driver = webdriver.Remote(command_executor=docker_remote,
                                            desired_capabilities=DesiredCapabilities.CHROME)
         else:
             print('使用有界面Chrome浏览器运行')
