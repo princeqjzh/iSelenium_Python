@@ -5,6 +5,7 @@ import time
 import unittest
 
 from selenium import webdriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 
@@ -25,18 +26,25 @@ class ISelenium(unittest.TestCase):
 
         # 控制是否采用无界面形式运行自动化测试
         try:
-            using_headless = os.environ["using_headless"]
+            browser = os.environ["browser"]
         except KeyError:
-            using_headless = None
-            print('没有配置环境变量 using_headless, 按照有界面方式运行自动化测试')
+            browser = None
+            print('没有配置环境变量 browser, 按照默认有界面方式运行自动化测试')
 
         chrome_options = Options()
-        if using_headless is not None and using_headless.lower() == 'true':
+        if browser is not None and browser.lower() == 'no_gui':
             print('使用无界面方式运行')
             chrome_options.add_argument("--headless")
-
-        self.driver = webdriver.Chrome(executable_path=config.get('driver', 'chrome_driver'),
-                                       options=chrome_options)
+            self.driver = webdriver.Chrome(executable_path=config.get('driver', 'chrome_driver'),
+                                           options=chrome_options)
+        elif browser is not None and browser.lower() == 'remote':
+            print('使用远程方式运行')
+            self.driver = webdriver.Remote(command_executor=config.get('driver', 'remote'),
+                                           desired_capabilities=DesiredCapabilities.CHROME)
+        else:
+            print('使用有界面Chrome浏览器运行')
+            self.driver = webdriver.Chrome(executable_path=config.get('driver', 'chrome_driver'),
+                                           options=chrome_options)
 
     @allure.story('Test key word 今日头条')
     def test_webui_1(self):
@@ -67,5 +75,12 @@ class ISelenium(unittest.TestCase):
         elem = self.driver.find_element_by_name("wd")
         elem.send_keys(f'{search_keyword}{Keys.RETURN}')
         print(f'搜索关键词~{search_keyword}')
+
         time.sleep(5)
-        self.assertTrue(f'{search_keyword}' in self.driver.title, msg=f'{testcase_name}校验点 pass')
+        result = f'{search_keyword}' in self.driver.title
+        self.assertTrue(result, msg=f'{testcase_name}校验点 pass')
+
+        if result:
+            print(f'搜索关键词{search_keyword}: Pass')
+        else:
+            print(f'搜索关键词{search_keyword}: Fail')
